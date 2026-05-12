@@ -1,0 +1,16 @@
+model:
+  vocab_size: 0  # set automatically from dataset
+  block_size: 128
+  n_layers: 4
+  n_heads: 4
+  n_embd: 256
+train:
+  batch_size: 32
+  max_iters: 2000
+  lr: 3e-4
+  eval_interval: 200
+  eval_iters: 50
+  device: "cuda"  # change to "cpu" if no GPU
+  seed: 1337
+  checkpoint_path: "checkpoints/model.pt"
+  data_path: "data/tiny_shakespeare.txt"
