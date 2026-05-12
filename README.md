@@ -4,6 +4,7 @@ A compact, **from‑scratch** Transformer language model that runs **fast on CPU
 - training a GPT‑style model from scratch
 - text generation
 - a LangChain demo wrapper to use your model in chains
+- a simple Markov Chain poetry generator
 
 > Optimized for **quick runs** on CPU so you can demo it immediately.
 
@@ -51,6 +52,17 @@ python -m src.generate --prompt "To be, or not to be" --checkpoint checkpoints/m
 python -m src.langchain_demo --prompt "Write a short poem about the moon"
 ```
 
+## 6) Markov Chain poetry (from scratch)
+
+```bash
+python -m src.markov_poetry --input data/tiny_shakespeare.txt --order 2 --words 120
+```
+
+Try different settings:
+- `--order 1` (more random)
+- `--order 3` (more coherent)
+- `--words 200` (longer poem)
+
 ## Project Layout
 
 ```
@@ -66,7 +78,8 @@ python -m src.langchain_demo --prompt "Write a short poem about the moon"
 │   ├── model.py
 │   ├── train.py
 │   ├── generate.py
-│   └── langchain_demo.py
+│   ├── langchain_demo.py
+│   └── markov_poetry.py
 ├── requirements.txt
 └── README.md
 ```
