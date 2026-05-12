@@ -1,11 +1,11 @@
 # GenAI Project — Mini LLM From Scratch (Python + PyTorch + LangChain)
 
-A compact, **from‑scratch** Transformer language model you can train on a small dataset (e.g., Tiny Shakespeare). Includes:
+A compact, **from‑scratch** Transformer language model that runs **fast on CPU**. Includes:
 - training a GPT‑style model from scratch
 - text generation
 - a LangChain demo wrapper to use your model in chains
 
-> Designed to be a **decent, impressive project** that runs locally while keeping the code readable.
+> Optimized for **quick runs** on CPU so you can demo it immediately.
 
 ## 1) Setup
 
@@ -31,10 +31,10 @@ python -m src.data --download
 
 This fetches Tiny Shakespeare and creates `data/tiny_shakespeare.txt`.
 
-## 3) Train the model
+## 3) Train the model (FAST CPU)
 
 ```bash
-python -m src.train --config configs/base.yaml
+python -u -m src.train --config configs/fast.yaml
 ```
 
 The trained checkpoint is saved to `checkpoints/model.pt`.
@@ -56,7 +56,8 @@ python -m src.langchain_demo --prompt "Write a short poem about the moon"
 ```
 .
 ├── configs/
-│   └── base.yaml
+│   ├── base.yaml
+│   └── fast.yaml
 ├── data/
 │   └── tiny_shakespeare.txt
 ├── checkpoints/
@@ -72,9 +73,9 @@ python -m src.langchain_demo --prompt "Write a short poem about the moon"
 
 ## Notes
 - This is a **from‑scratch Transformer** (token embedding + positional embedding + multi‑head self‑attention + MLP + layer norm).
-- Keep batch size and model size small for CPU.
-- Adjust `configs/base.yaml` to scale up if you have a GPU.
+- Use `configs/fast.yaml` for quick CPU demos.
+- If you have a GPU, increase block size, layers, and `max_iters`.
 
 ---
 
-If you want extras (tokenizers, more datasets, Weights & Biases logging, evaluation, etc.), ask and I can add them.
+If you want a higher‑quality config or extra features (tokenizers, more datasets, eval, UI), ask and I’ll add them.
