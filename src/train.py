@@ -23,11 +23,13 @@ class TextDataset(Dataset):
         return torch.tensor(x, dtype=torch.long), torch.tensor(y, dtype=torch.long)
 
 
-def estimate_loss(model, data_loader, device):
+def estimate_loss(model, data_loader, device, max_batches=2):
     model.eval()
     losses = []
     with torch.no_grad():
-        for xb, yb in data_loader:
+        for i, (xb, yb) in enumerate(data_loader):
+            if i >= max_batches:
+                break
             xb, yb = xb.to(device), yb.to(device)
             _, loss = model(xb, yb)
             losses.append(loss.item())
@@ -86,8 +88,8 @@ def main():
         optimizer.step()
 
         if it % cfg["train"]["eval_interval"] == 0:
-            train_loss = estimate_loss(model, train_loader, device)
-            val_loss = estimate_loss(model, val_loader, device)
+            train_loss = estimate_loss(model, train_loader, device, max_batches=2)
+            val_loss = estimate_loss(model, val_loader, device, max_batches=2)
             elapsed = time.time() - start
             print(
                 f"step {it} | train loss {train_loss:.4f} | val loss {val_loss:.4f} | {elapsed:.1f}s"
